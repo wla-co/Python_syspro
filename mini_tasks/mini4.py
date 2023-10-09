@@ -1,14 +1,14 @@
 def create_reversed_dict(src_dict):
-    reversed_dict = {}
-
+    reversed_dict = dict()
+    to_repeat = set()
     for value_new, key_new in src_dict.items():
-        if key_new in reversed_dict:
-            if isinstance(reversed_dict[key_new], tuple):
-                reversed_dict[key_new] += value_new,  # append tuple if exists with 'value_new,' (one-element tuple)
-            else:
-                reversed_dict[key_new] = (reversed_dict[key_new], value_new)  # create tuple if not exists
+        if key_new in reversed_dict and key_new not in to_repeat:
+            reversed_dict[key_new] = (reversed_dict[key_new],)
+            to_repeat.add(key_new)
+        if key_new in to_repeat:
+            reversed_dict[key_new] += value_new,
         else:
-            reversed_dict[key_new] = value_new  # just create new element by key_new
+            reversed_dict[key_new] = value_new
 
     return reversed_dict
 
